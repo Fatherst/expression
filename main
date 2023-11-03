@@ -1,0 +1,18 @@
+from itertools import product
+
+
+def find_expression(target):
+    operators = ['+', '-', '']
+    numbers = [i for i in range(9,-1,-1)]
+    print(numbers)
+    for combo in product(operators, repeat=10):
+        expression = "9"
+        for i in range(10):
+            expression += combo[i] + str(numbers[i])
+        if eval(expression) == target:
+            return expression
+
+
+result = find_expression(200)
+if result:
+    print(result, "=", 200)
