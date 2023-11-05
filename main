@@ -1,18 +1,31 @@
 from itertools import product
 
 
-def find_expression(target):
+def find_expressions(target):
     operators = ['+', '-', '']
-    numbers = [i for i in range(9,-1,-1)]
-    print(numbers)
+    numbers = list(range(9, -1, -1))
+    expressions = []
+
     for combo in product(operators, repeat=10):
-        expression = "9"
+        expression = ""
         for i in range(10):
-            expression += combo[i] + str(numbers[i])
+            if i > 0 and combo[i] != ' ':
+                expression += combo[i]
+            expression += str(numbers[i])
+
         if eval(expression) == target:
-            return expression
+            expressions.append(expression)
+
+        if len(expressions) >= 3:
+            break
+
+    return expressions
 
 
-result = find_expression(200)
-if result:
-    print(result, "=", 200)
+target = 200
+results = find_expressions(target)
+if results:
+    for i, result in enumerate(results, 1):
+        print(f"Решение {i}: {result} = {target}")
+else:
+    print("Решения не найдены")
